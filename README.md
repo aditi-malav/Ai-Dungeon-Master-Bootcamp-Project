@@ -192,17 +192,7 @@ streamlit run app.py
 
 ---
 
-## Example Gameplay
 
-```text
-Player:
-"I cautiously enter the abandoned castle."
-
-AI Dungeon Master:
-"The rusted iron gates creak shut behind you as torchlight flickers across damp stone walls..."
-```
-
----
 
 ## Memory System
 
