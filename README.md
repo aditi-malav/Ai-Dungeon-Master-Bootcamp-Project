@@ -2,8 +2,6 @@
 
 Stateful AI-powered interactive storytelling engine built using Large Language Models with dynamic prompt orchestration, dual-mode memory systems, and semantic retrieval pipelines.
 
----
-
 ## Overview
 
 AI Dungeon Master is a stateful conversational AI system where Large Language Models act as an intelligent Dungeon Master capable of maintaining narrative continuity, contextual memory, and immersive RPG-style interactions.
