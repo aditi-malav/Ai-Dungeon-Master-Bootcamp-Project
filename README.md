@@ -2,16 +2,6 @@
 
 Stateful AI-powered interactive storytelling engine built using Large Language Models with dynamic prompt orchestration, dual-mode memory systems, and semantic retrieval pipelines.
 
-<p align="center">
-  <a href="https://ai-dungeon-master-bootcamp-project-sqtqtfhggqmpqsecogwbvh.streamlit.app/">
-    <img src="https://img.shields.io/badge/Live%20Demo-Streamlit-red?style=for-the-badge&logo=streamlit">
-  </a>
-
-  <a href="https://streamable.com/ve9pnd">
-    <img src="https://img.shields.io/badge/Demo%20Video-Watch-blue?style=for-the-badge">
-  </a>
-</p>
-
 ---
 
 ## Overview
