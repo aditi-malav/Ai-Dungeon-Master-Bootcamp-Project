@@ -247,8 +247,7 @@ Pinned notes are automatically injected into future prompts to preserve continui
 - Multiplayer support
 - Voice-enabled gameplay
 - LangGraph workflows
-- Docker deployment
-- Streaming LLM responses
+
 
 ---
 
@@ -263,11 +262,4 @@ This project explores:
 - Context Management
 - AI Workflow Engineering
 
----
 
-## Author
-
-Aditi Malav
-
-GitHub  
-https://github.com/aditi-malav
