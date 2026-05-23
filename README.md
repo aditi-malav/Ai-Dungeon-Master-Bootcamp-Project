@@ -1,27 +1,20 @@
 # AI Dungeon Master
 
-Stateful AI-powered interactive storytelling engine built using Large Language Models with dynamic prompt orchestration, dual-mode memory systems, and semantic retrieval pipelines.
+AI-powered interactive storytelling platform built using Large Language Models with dual-mode memory systems, semantic retrieval pipelines, and dynamic prompt orchestration.
+
 
 ## Overview
 
-AI Dungeon Master is a stateful conversational AI system where Large Language Models act as an intelligent Dungeon Master capable of maintaining narrative continuity, contextual memory, and immersive RPG-style interactions.
+AI Dungeon Master is a conversational AI system where Large Language Models act as a dynamic Dungeon Master capable of generating immersive RPG-style adventures with contextual memory and narrative continuity.
 
-The project combines:
-- Dual-mode AI memory systems
-- Semantic RAG-based retrieval
-- Stateful session orchestration
-- Dynamic prompt engineering
-- Context-aware memory injection
-- Multi-provider LLM inference
+The project implements:
+- Dual-mode AI memory architecture (Lightweight + Semantic RAG)
+- Stateful conversational context management
+- Retrieval-aware prompt orchestration
+- Multi-provider LLM inference using Groq and OpenAI APIs
+- Context compression and consistency-aware memory recall
 
-The architecture focuses on solving key challenges in conversational AI systems such as:
-- Context loss
-- Hallucinations
-- Narrative inconsistency
-- Token optimization
-- Stateful long-term interactions
-
----
+The system is designed to address key challenges in long-context conversational AI systems including memory retention, hallucination reduction, narrative consistency, and token-efficient inference.
 
 ## Live Application
 
