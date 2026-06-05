@@ -1,119 +1,131 @@
 # AI Dungeon Master
 
-Stateful interactive storytelling platform built using Large Language Models, semantic retrieval, and memory-aware prompt construction.
+A text-based adventure game where a Large Language Model acts as the Dungeon Master and generates story responses based on player actions.
 
-## Overview
+The project explores different approaches to giving an LLM memory so it can remember important events and maintain better story continuity during longer conversations.
 
-AI Dungeon Master is a conversational storytelling system where a Large Language Model acts as a Dungeon Master and generates RPG-style adventures based on player actions.
+## Live Demo
 
-The project explores techniques for maintaining narrative continuity across long conversations through a combination of short-term conversational memory and optional semantic retrieval.
+### Application
 
-Core capabilities include:
+https://ai-dungeon-master-bootcamp-project-sqtqtfhggqmpqsecogwbvh.streamlit.app/
 
-- Stateful narrative generation
-- Dual-mode memory management
-- Semantic memory retrieval using FAISS
-- Retrieval-aware prompt construction
-- Persistent note pinning
-- Automatic key-event extraction
-- Rate-limit-aware inference handling
+### Demo Video
+
+https://streamable.com/ve9pnd
 
 ---
 
 ## Features
 
+### Interactive Storytelling
+
+- Player-driven text adventure
+- AI-generated story responses
+- Streamlit-based web interface
+
 ### Dual Memory Modes
 
 #### Lightweight Memory
 
-- Sliding-window conversational memory
-- Fast context retrieval
-- Low token usage
+- Stores recent conversation history
+- Retrieves important notes using keyword matching and priority scores
+- Fast and lightweight
 
-#### Semantic RAG Memory
+#### Semantic Memory
 
-- Long-term memory storage
-- Semantic retrieval using embeddings
-- Context-aware recall of relevant events
+- Stores important story events as long-term notes
+- Uses Sentence Transformers to generate embeddings
+- Uses FAISS for similarity search
+- Retrieves memories related to the current player action
 
-### Narrative Continuity
+### Long-Term Notes
 
-- Persistent world-state tracking
-- Event-based memory extraction
-- Memory pinning through player notes
-- Consistency reminder system
+Important story events are stored and reused later in the adventure.
 
-### LLM Integration
+Examples include:
 
-Supports either:
+- Discovering items
+- Receiving quests
+- Finding locations
+- Meeting important characters
 
-- Groq API
-- OpenAI API
+Players can also manually save information:
 
-through a configurable inference backend.
+```text
+remember: The silver key opens the northern vault.
+```
 
-### Prompt Construction Pipeline
+### Event Extraction
 
-Player input is combined with:
-
-- Recent conversation history
-- Retrieved long-term memories
-- Consistency hints
-- Pinned notes
-
-before being sent to the language model.
+After each AI response, the system extracts notable events using simple keyword-based rules and stores them as long-term memory.
 
 ### Reliability Features
 
-- Automatic retry handling for API rate limits
-- Context trimming to control prompt size
-- Memory compaction to prevent unbounded growth
+- Retry handling for API rate limits
+- Prompt size control
+- Memory cleanup and deduplication
 
 ---
 
-## System Architecture
+## How It Works
+
+1. The player enters an action.
+2. Recent conversation history is collected.
+3. Relevant long-term memories are retrieved.
+4. A prompt is built using:
+   - System instructions
+   - Recent conversation
+   - Retrieved memories
+   - Consistency hints
+5. The prompt is sent to the language model.
+6. The generated response is shown to the player.
+7. Important events are extracted and stored for future use.
+
+### System Flow
 
 ```text
 Player Input
       ↓
-Short-Term Memory
-      ↓
-(Optional) Semantic Retrieval
+Memory Retrieval
       ↓
 Prompt Construction
       ↓
-LLM Inference
-      ↓
-Story Generation
-      ↓
-Memory Update
+LLM Response
       ↓
 Event Extraction
+      ↓
+Memory Update
 ```
 
 ---
 
 ## Technology Stack
 
-### Languages & Frameworks
+### Backend
 
 - Python
+
+### User Interface
+
 - Streamlit
 
-### AI & Retrieval
+### Language Models
 
 - Groq API
 - OpenAI API
+
+### Semantic Retrieval
+
 - Sentence Transformers
 - FAISS
 
-### Concepts
+### Concepts Used
 
-- Retrieval-Augmented Generation (RAG)
-- Semantic Search
 - Conversational Memory
+- Semantic Search
+- Retrieval-Augmented Generation (RAG)
 - Prompt Engineering
-- Stateful Session Management
 
 ---
 
@@ -135,50 +147,57 @@ AI-Dungeon-Master/
 
 ## Memory System
 
-### Persistent Notes
+### Short-Term Memory
 
-Players can store important information:
+Recent conversation turns are stored and included in future prompts.
+
+### Long-Term Memory
+
+Important events are saved as notes and can be retrieved later.
+
+### Pinned Notes
+
+Players can manually save information:
 
 ```text
-remember: The silver key opens the northern vault.
+remember: The village elder owes me a favor.
 ```
-
-Pinned notes are retained across future interactions.
-
-### Event Extraction
-
-The system automatically extracts notable events from generated responses and stores them as long-term memory entries.
 
 ### Semantic Retrieval
 
-When Semantic RAG mode is enabled, stored memories are embedded using Sentence Transformers and indexed with FAISS for similarity-based retrieval.
+When Semantic Memory mode is enabled:
+
+1. Notes are converted into embeddings.
+2. Embeddings are stored in a FAISS index.
+3. Relevant notes are retrieved using similarity search.
+4. Retrieved notes are added to future prompts.
 
 ---
 
 ## Installation
 
-### Clone Repository
+### Clone the Repository
 
 ```bash
 git clone https://github.com/aditi-malav/Ai-Dungeon-Master-Bootcamp-Project.git
 cd Ai-Dungeon-Master-Bootcamp-Project
 ```
 
-### Create Virtual Environment
+### Create a Virtual Environment
 
 ```bash
 python -m venv venv
 ```
 
-### Activate Environment
+### Activate the Environment
 
-#### Windows
+Windows:
 
 ```bash
 venv\Scripts\activate
 ```
 
-#### Linux/macOS
+Linux/macOS:
 
 ```bash
 source venv/bin/activate
@@ -190,11 +209,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
----
-
-## Environment Variables
-
-Create a `.env` file:
+### Create a .env File
 
 ```env
 PROVIDER=groq
@@ -208,9 +223,7 @@ MAX_TOKENS=350
 MAX_NOTES=18
 ```
 
----
-
-## Run the Application
+### Run the Application
 
 ```bash
 streamlit run app.py
@@ -218,36 +231,28 @@ streamlit run app.py
 
 ---
 
-## Live Demo
-
-**Application**  
-https://ai-dungeon-master-bootcamp-project-sqtqtfhggqmpqsecogwbvh.streamlit.app/
-
-**Demo Video**  
-https://streamable.com/ve9pnd
-
----
-
 ## Future Improvements
 
+- Better event extraction using LLMs
+- More structured character tracking
+- Persistent vector database
 - FastAPI backend
 - React frontend
-- Persistent vector database
 - Multiplayer support
 - Voice interactions
-- Richer memory extraction strategies
 
 ---
 
 ## Learning Outcomes
 
-This project explores:
+Through this project, I explored:
 
-- Stateful conversational systems
-- Retrieval-Augmented Generation
-- Semantic search
-- Prompt construction
-- Memory management for LLM applications
+- Building applications with LLM APIs
+- Memory management for conversational systems
+- Semantic search using embeddings
+- Retrieval-Augmented Generation (RAG)
+- Prompt construction and context management
+- Streamlit application development
 - Long-context interaction design
 
 
