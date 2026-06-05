@@ -1,65 +1,73 @@
 # AI Dungeon Master
 
-AI-powered interactive storytelling platform built using Large Language Models with dual-mode memory systems, semantic retrieval pipelines, and dynamic prompt orchestration.
-
+Stateful interactive storytelling platform built using Large Language Models, semantic retrieval, and memory-aware prompt construction.
 
 ## Overview
 
-AI Dungeon Master is a conversational AI system where Large Language Models act as a dynamic Dungeon Master capable of generating immersive RPG-style adventures with contextual memory and narrative continuity.
+AI Dungeon Master is a conversational storytelling system where a Large Language Model acts as a Dungeon Master and generates RPG-style adventures based on player actions.
 
-The project implements:
-- Dual-mode AI memory architecture (Lightweight + Semantic RAG)
-- Stateful conversational context management
-- Retrieval-aware prompt orchestration
-- Multi-provider LLM inference using Groq and OpenAI APIs
-- Context compression and consistency-aware memory recall
+The project explores techniques for maintaining narrative continuity across long conversations through a combination of short-term conversational memory and optional semantic retrieval.
 
-The system is designed to address key challenges in long-context conversational AI systems including memory retention, hallucination reduction, narrative consistency, and token-efficient inference.
+Core capabilities include:
 
-## Live Application
-
-App Link  
-https://ai-dungeon-master-bootcamp-project-sqtqtfhggqmpqsecogwbvh.streamlit.app/
-
-Demo Video  
-https://streamable.com/ve9pnd
+- Stateful narrative generation
+- Dual-mode memory management
+- Semantic memory retrieval using FAISS
+- Retrieval-aware prompt construction
+- Persistent note pinning
+- Automatic key-event extraction
+- Rate-limit-aware inference handling
 
 ---
 
-## Key Features
+## Features
 
-### Dual-mode AI Memory System
-- Lightweight short-term conversational memory
-- Semantic RAG-based long-term retrieval system
+### Dual Memory Modes
 
-### Stateful Narrative Consistency
+#### Lightweight Memory
+
+- Sliding-window conversational memory
+- Fast context retrieval
+- Low token usage
+
+#### Semantic RAG Memory
+
+- Long-term memory storage
+- Semantic retrieval using embeddings
+- Context-aware recall of relevant events
+
+### Narrative Continuity
+
 - Persistent world-state tracking
-- Context-aware memory injection
-- NPC and event continuity handling
+- Event-based memory extraction
+- Memory pinning through player notes
+- Consistency reminder system
 
-### Multi-provider LLM Support
-- Groq API integration
-- OpenAI API integration
+### LLM Integration
 
-### Dynamic Prompt Orchestration
-- Structured context assembly
-- Retrieval-aware prompt construction
-- Context compression for token efficiency
+Supports either:
 
-### Creative Memory Features
-- Persistent note pinning using:
-```text
-remember: <note>
-```
+- Groq API
+- OpenAI API
 
-- Automatic key-event extraction
-- Consistency-aware recall hints
-- Context-focused retrieval scheduling
+through a configurable inference backend.
 
-### Reliability Engineering
-- Retry handling for API rate limits
-- Fault-tolerant inference pipeline
-- Token-efficient context trimming
+### Prompt Construction Pipeline
+
+Player input is combined with:
+
+- Recent conversation history
+- Retrieved long-term memories
+- Consistency hints
+- Pinned notes
+
+before being sent to the language model.
+
+### Reliability Features
+
+- Automatic retry handling for API rate limits
+- Context trimming to control prompt size
+- Memory compaction to prevent unbounded growth
 
 ---
 
@@ -68,49 +76,50 @@ remember: <note>
 ```text
 Player Input
       ↓
-Short-Term Memory Retrieval
+Short-Term Memory
       ↓
-Semantic RAG Recall
+(Optional) Semantic Retrieval
       ↓
-Prompt Construction Pipeline
+Prompt Construction
       ↓
 LLM Inference
       ↓
-Narrative Generation
+Story Generation
       ↓
-Consistency Validation
+Memory Update
       ↓
-Memory Update & Event Extraction
+Event Extraction
 ```
 
 ---
 
-## Tech Stack
+## Technology Stack
 
 ### Languages & Frameworks
+
 - Python
 - Streamlit
 
-### AI & NLP
-- OpenAI API
-- Groq API
-- Prompt Engineering
-- Semantic Retrieval
-- Retrieval-Augmented Generation (RAG)
+### AI & Retrieval
 
-### Backend Concepts
+- Groq API
+- OpenAI API
+- Sentence Transformers
+- FAISS
+
+### Concepts
+
+- Retrieval-Augmented Generation (RAG)
+- Semantic Search
+- Conversational Memory
+- Prompt Engineering
 - Stateful Session Management
-- Dynamic Prompt Pipelines
-- Context Compression
-- Retrieval Systems
-- Fault-Tolerant API Handling
-- Context-Aware Memory Recall
 
 ---
 
 ## Project Structure
 
-```bash
+```text
 AI-Dungeon-Master/
 │
 ├── app.py
@@ -121,6 +130,28 @@ AI-Dungeon-Master/
 ├── .env
 └── README.md
 ```
+
+---
+
+## Memory System
+
+### Persistent Notes
+
+Players can store important information:
+
+```text
+remember: The silver key opens the northern vault.
+```
+
+Pinned notes are retained across future interactions.
+
+### Event Extraction
+
+The system automatically extracts notable events from generated responses and stores them as long-term memory entries.
+
+### Semantic Retrieval
+
+When Semantic RAG mode is enabled, stored memories are embedded using Sentence Transformers and indexed with FAISS for similarity-based retrieval.
 
 ---
 
@@ -141,12 +172,14 @@ python -m venv venv
 
 ### Activate Environment
 
-Windows:
+#### Windows
+
 ```bash
 venv\Scripts\activate
 ```
 
-macOS/Linux:
+#### Linux/macOS
+
 ```bash
 source venv/bin/activate
 ```
@@ -177,7 +210,7 @@ MAX_NOTES=18
 
 ---
 
-## Run Application
+## Run the Application
 
 ```bash
 streamlit run app.py
@@ -185,64 +218,36 @@ streamlit run app.py
 
 ---
 
+## Live Demo
 
+**Application**  
+https://ai-dungeon-master-bootcamp-project-sqtqtfhggqmpqsecogwbvh.streamlit.app/
 
-## Memory System
-
-### Lightweight Memory Mode
-- Fast conversational recall
-- Token-efficient short-term context
-
-### Semantic RAG Mode
-- Context-aware retrieval
-- Long-term narrative consistency
-- Semantic memory search
-
----
-
-## Persistent Memory Notes
-
-Players can permanently store important information:
-
-```text
-remember: The silver key opens the northern vault.
-```
-
-Pinned notes are automatically injected into future prompts to preserve continuity.
-
----
-
-## Reliability & Optimization Features
-
-- Automatic retry handling for API rate limits
-- Dynamic retrieval scheduling
-- Token-efficient context management
-- Multi-provider inference abstraction
-- Consistency-aware memory hints
+**Demo Video**  
+https://streamable.com/ve9pnd
 
 ---
 
 ## Future Improvements
 
-- React frontend
 - FastAPI backend
-- Vector database integration
+- React frontend
+- Persistent vector database
 - Multiplayer support
-- Voice-enabled gameplay
-- LangGraph workflows
-
+- Voice interactions
+- Richer memory extraction strategies
 
 ---
 
 ## Learning Outcomes
 
 This project explores:
-- AI Agent Architectures
+
+- Stateful conversational systems
 - Retrieval-Augmented Generation
-- Prompt Orchestration
-- Stateful Conversational AI
-- Semantic Retrieval Systems
-- Context Management
-- AI Workflow Engineering
+- Semantic search
+- Prompt construction
+- Memory management for LLM applications
+- Long-context interaction design
 
 
