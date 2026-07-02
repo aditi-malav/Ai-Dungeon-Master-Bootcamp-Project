@@ -8,9 +8,9 @@ PROVIDER = os.getenv('PROVIDER', 'groq').lower()
 MODEL_NAME = os.getenv('MODEL_NAME', 'llama-3.1-8b-instant')
 
 class DMEngine:
-    def __init__(self, use_semantic_rag: bool = False):
+    def __init__(self):
        
-        self.use_semantic_rag = use_semantic_rag
+      
         self.provider = PROVIDER
         self.model = MODEL_NAME
         self.session = requests.Session()
