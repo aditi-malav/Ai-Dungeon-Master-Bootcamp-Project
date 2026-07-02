@@ -172,6 +172,7 @@ if user_text is not None:
 
     
     memory.add_turn(text, dm_reply)
+    memory.extract_key_events(text, st.session_state.turn)      # User events
     memory.extract_key_events(dm_reply, st.session_state.turn)
     if st.session_state.turn % 4 == 0:
         try:
