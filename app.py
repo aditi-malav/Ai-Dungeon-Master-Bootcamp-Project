@@ -119,7 +119,7 @@ if user_text is not None:
 
     
     if text.lower() == "reset":
-        st.session_state.engine = DMEngine(use_semantic_rag=use_rag)
+        st.session_state.engine = DMEngine()
         st.session_state.memory = MemoryManager(short_window=4, use_semantic_rag=use_rag)
         st.session_state.turn = 0
         st.session_state.chat = []
