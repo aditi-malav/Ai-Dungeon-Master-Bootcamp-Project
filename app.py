@@ -38,7 +38,7 @@ with st.sidebar:
 
 mode_key = f"mode:{'rag' if use_rag else 'light'}"
 if ("engine" not in st.session_state) or (st.session_state.get("engine_mode") != mode_key) or btn_reset:
-    st.session_state.engine = DMEngine(use_semantic_rag=use_rag)
+    st.session_state.engine = DMEngine()
     
     st.session_state.memory = MemoryManager(short_window=4, use_semantic_rag=use_rag)
     st.session_state.engine_mode = mode_key
