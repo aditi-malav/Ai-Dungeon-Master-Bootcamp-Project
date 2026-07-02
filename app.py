@@ -3,6 +3,7 @@ import streamlit as st
 from dotenv import load_dotenv
 
 
+
 load_dotenv()
 if hasattr(st, "secrets"):
     for k, v in st.secrets.items():
@@ -10,7 +11,7 @@ if hasattr(st, "secrets"):
 
 from dm_engine import DMEngine
 from memory import MemoryManager
-from prompts import SYSTEM_PROMPT
+from prompts import get_system_prompt
 
 
 st.set_page_config(page_title="AI Dungeon Master", page_icon="🧙‍♂️", layout="centered")
@@ -30,6 +31,12 @@ with st.sidebar:
     default_len = int(os.getenv("MAX_TOKENS", "350"))
     reply_len = st.slider("📝 Reply Length (tokens)", 200, 600, default_len, 20)
     os.environ["MAX_TOKENS"] = str(reply_len)
+    if reply_len <= 250:
+        style = "brief (4–6 sentences)"
+    elif reply_len <= 400:
+        style = "moderately detailed (6–10 sentences)"
+    else:
+        style = "highly detailed (10–15 sentences)"
     st.caption("Shorter replies reduce rate-limit errors and feel snappier.")
 
     btn_reset = st.button("Reset World")
@@ -145,7 +152,11 @@ if user_text is not None:
 
     
     try:
-        dm_reply = engine.chat(build_messages(SYSTEM_PROMPT, short_ctx, long_ctx, hints, text))
+        system_prompt = get_system_prompt(style)
+
+        dm_reply = engine.chat(
+            build_messages(system_prompt, short_ctx, long_ctx, hints, text)
+)
     except Exception as e:
         dm_reply = f"(Error contacting model: {e})"
 
